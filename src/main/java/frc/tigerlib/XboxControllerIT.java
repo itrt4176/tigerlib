@@ -1,7 +1,5 @@
 package frc.tigerlib;
 
-import java.util.EnumMap;
-
 import edu.wpi.first.wpilibj.XboxController;
 
 /**
@@ -18,6 +16,7 @@ import edu.wpi.first.wpilibj.XboxController;
  */
 public class XboxControllerIT extends XboxController {
     private int lastPOV = -1;
+    private double deadzone;
 
     /** Represents a d-pad direction on an XboxController. */
     public enum DPadDirection {
@@ -49,6 +48,51 @@ public class XboxControllerIT extends XboxController {
         }
     }
 
+    public XboxControllerIT(final int port) {
+        super(port);
+        deadzone = 0.05;
+    }
+
+    public void setDeadzone(double deadzone) {
+        this.deadzone = deadzone;
+    }
+
+    public double getDeadzone() {
+        return deadzone;
+    }
+
+    private double applyDeadzone(double value) {
+        if (Math.abs(value) > deadzone) {
+            if (value > 0.0) {
+                return (value - deadzone) / (1.0 - deadzone);
+            } else {
+                return (value + deadzone) / (1.0 - deadzone);
+            }
+        } else {
+            return 0.0;
+        }
+    }
+
+    @Override
+    public double getLeftX() {
+        return applyDeadzone(super.getLeftX());
+    }
+
+    @Override
+    public double getLeftY() {
+        return applyDeadzone(super.getLeftY());
+    }
+
+    @Override
+    public double getRightX() {
+        return applyDeadzone(super.getRightX());
+    }
+
+    @Override
+    public double getRightY() {
+        return applyDeadzone(super.getRightY());
+    }
+
     /**
      * Get the angle in degrees of the default POV (index 0) on the HID.
      *
@@ -62,10 +106,6 @@ public class XboxControllerIT extends XboxController {
     public int getPOV() {
         lastPOV = super.getPOV();
         return lastPOV;
-    }
-
-    public XboxControllerIT(final int port) {
-        super(port);
     }
 
     /**
