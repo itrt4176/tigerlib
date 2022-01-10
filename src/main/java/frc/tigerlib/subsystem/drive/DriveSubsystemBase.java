@@ -27,6 +27,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
     this.gyro = gyro;
 
     gyro.calibrate();
+    robotPosition = new Pose2d();
     gameField = new Field2d();
   }
 
