@@ -31,6 +31,12 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
     gameField = new Field2d();
   }
 
+  public Pose2d getRobotPosition() {
+    return robotPosition;
+  }
+  
+  public abstract void setRobotPosition(Pose2d pose);
+
   protected abstract double getLeftDistance();
 
   protected abstract double getRightDistance();
