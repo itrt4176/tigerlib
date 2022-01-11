@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
-public abstract class MecanumDriveSubsystem extends DriveSubsystemBase{
+public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
+    protected MotorController frontLeft, rearLeft, frontRight, rearRight;
     protected MecanumDrive drive;
     protected MecanumDriveOdometry odometer;
     private Runnable resetEncoders;
@@ -21,6 +22,11 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase{
 
         frontRight.setInverted(true);
         rearRight.setInverted(true);
+
+        this.frontLeft = frontLeft;
+        this.frontRight = frontRight;
+        this.rearLeft = rearLeft;
+        this.rearRight = rearRight;
 
         drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
 

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 
 public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
+    protected MotorControllerGroup leftMotors, rightMotors;
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
     private Runnable resetEncoders;
@@ -14,6 +15,8 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     public DifferentialDriveSubsystem(MotorControllerGroup leftMotors, MotorControllerGroup rightMotors, Gyro gyro, Runnable resetEncoders) {
         super(gyro);
         rightMotors.setInverted(true);
+        this.leftMotors = leftMotors;
+        this.rightMotors = rightMotors;
         drive = new DifferentialDrive(leftMotors, rightMotors);
 
         this.resetEncoders = resetEncoders;
