@@ -11,7 +11,7 @@ repositories {
     }
 }
 
-version = "2022-0.1.0"
+version = "2022.1.0"
 group = "com.github.itrt4176"
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -33,4 +33,9 @@ java {
 
 javadoc {
     options.encoding = 'UTF-8'
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
