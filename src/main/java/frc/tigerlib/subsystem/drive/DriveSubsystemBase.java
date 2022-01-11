@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public abstract class DriveSubsystemBase extends SubsystemBase {
-  protected RobotDriveBase drive;
   protected Gyro gyro;
   protected Pose2d robotPosition;
   protected Field2d gameField;
@@ -22,8 +21,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
    * @param leftEncoder
    * @param rightEncoder
    */
-  public DriveSubsystemBase(RobotDriveBase drive, Gyro gyro) {
-    this.drive = drive;
+  public DriveSubsystemBase(Gyro gyro) {
     this.gyro = gyro;
 
     gyro.calibrate();

@@ -13,10 +13,10 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     private Runnable resetEncoders;
     
     public DifferentialDriveSubsystem(MotorControllerGroup leftMotors, MotorControllerGroup rightMotors, Gyro gyro, Runnable resetEncoders) {
-        super(new DifferentialDrive(leftMotors, rightMotors), gyro);
-        drive = (DifferentialDrive) super.drive;
+        super(gyro);
         this.leftMotors = leftMotors;
         this.rightMotors = rightMotors;
+        drive = new DifferentialDrive(this.leftMotors, this.rightMotors);
         this.rightMotors.setInverted(true);
 
         this.resetEncoders = resetEncoders;
