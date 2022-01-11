@@ -1,5 +1,6 @@
 package frc.tigerlib.subsystem.drive;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -37,5 +38,11 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase{
 
     protected void setFieldOriented(boolean isFieldOriented) {
         this.isFieldOriented = isFieldOriented;
+    }
+
+    @Override
+    public void setRobotPosition(Pose2d pose) {
+        resetEncoders.run();
+        odometer.resetPosition(pose, gyro.getRotation2d());
     }
 }
