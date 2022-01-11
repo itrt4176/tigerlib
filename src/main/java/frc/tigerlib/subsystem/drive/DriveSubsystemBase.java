@@ -35,6 +35,14 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
   protected abstract void resetEncoders();
 
+  protected void setup(Gyro gyro) {
+    this.gyro = gyro;
+
+    gyro.calibrate();
+    robotPosition = new Pose2d();
+    gameField = new Field2d();
+  }
+
   
 
 
