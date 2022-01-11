@@ -5,6 +5,9 @@ plugins {
 
 repositories {
     mavenCentral()
+    maven {
+        url "https://frcmaven.wpi.edu/artifactory/release/"
+    }
 }
 
 version = "2022-0.1.0"
@@ -18,7 +21,7 @@ targetCompatibility = JavaVersion.VERSION_11
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    compileOnly wpi.java.deps.wpilib()
+    compileOnly wpi.java.deps.wpilib() 
     compileOnly wpi.java.vendor.java()
 }
 
