@@ -4,15 +4,15 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
-import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
-    protected MotorControllerGroup leftMotors, rightMotors;
+    protected MotorController leftMotors, rightMotors;
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
     private Runnable resetEncoders;
     
-    public DifferentialDriveSubsystem(MotorControllerGroup leftMotors, MotorControllerGroup rightMotors, Gyro gyro, Runnable resetEncoders) {
+    public DifferentialDriveSubsystem(MotorController leftMotors, MotorController rightMotors, Gyro gyro, Runnable resetEncoders) {
         super(gyro);
         rightMotors.setInverted(true);
         this.leftMotors = leftMotors;
