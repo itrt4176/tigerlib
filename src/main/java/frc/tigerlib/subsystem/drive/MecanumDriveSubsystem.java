@@ -12,11 +12,10 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
     protected MotorController frontLeft, rearLeft, frontRight, rearRight;
     protected MecanumDrive drive;
     protected MecanumDriveOdometry odometer;
-    private Runnable resetEncoders;
     private boolean isFieldOriented;
 
     public MecanumDriveSubsystem(MotorController frontLeft, MotorController rearLeft, MotorController frontRight,
-            MotorController rearRight, Gyro gyro, Runnable resetEncoders, MecanumDriveKinematics kinematics) {
+            MotorController rearRight, Gyro gyro, MecanumDriveKinematics kinematics) {
 
         super(gyro);
 
@@ -30,8 +29,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
 
         drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
 
-        this.resetEncoders = resetEncoders;
-        this.resetEncoders.run();
+        resetEncoders();
         odometer = new MecanumDriveOdometry(kinematics, gyro.getRotation2d());
     }
 
@@ -51,7 +49,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
 
     @Override
     public void setRobotPosition(Pose2d pose) {
-        resetEncoders.run();
+        resetEncoders();
         odometer.resetPosition(pose, gyro.getRotation2d());
         robotPosition = odometer.getPoseMeters();
     }

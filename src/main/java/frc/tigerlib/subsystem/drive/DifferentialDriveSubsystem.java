@@ -10,17 +10,15 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     protected MotorController leftMotors, rightMotors;
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
-    private Runnable resetEncoders;
     
-    public DifferentialDriveSubsystem(MotorController leftMotors, MotorController rightMotors, Gyro gyro, Runnable resetEncoders) {
+    public DifferentialDriveSubsystem(MotorController leftMotors, MotorController rightMotors, Gyro gyro) {
         super(gyro);
         rightMotors.setInverted(true);
         this.leftMotors = leftMotors;
         this.rightMotors = rightMotors;
         drive = new DifferentialDrive(leftMotors, rightMotors);
 
-        this.resetEncoders = resetEncoders;
-        this.resetEncoders.run();
+        resetEncoders();
         odometer = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
@@ -29,7 +27,7 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     }
 
     public void setRobotPosition(Pose2d pose) {
-        resetEncoders.run();
+        resetEncoders();
         odometer.resetPosition(pose, gyro.getRotation2d());
         robotPosition = odometer.getPoseMeters();
     }

@@ -33,6 +33,8 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
   protected abstract double getRightDistance();
 
+  protected abstract void resetEncoders();
+
   
 
 
