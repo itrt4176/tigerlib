@@ -11,8 +11,10 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
     
-    public DifferentialDriveSubsystem(MotorController leftMotors, MotorController rightMotors, Gyro gyro) {
-        super(gyro);
+    protected DifferentialDriveSubsystem() {}
+
+    protected void setup(MotorController leftMotors, MotorController rightMotors, Gyro gyro) {
+        super.setup(gyro);
         rightMotors.setInverted(true);
         this.leftMotors = leftMotors;
         this.rightMotors = rightMotors;
