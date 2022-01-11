@@ -1,6 +1,7 @@
 plugins {
     id "edu.wpi.first.GradleRIO" version "2022.1.1"
     id "java-library"
+    id "maven-publish"
 }
 
 repositories {
@@ -11,7 +12,7 @@ repositories {
 }
 
 version = "2022-0.1.0"
-group = "frc.tigerlib"
+group = "com.github.itrt4176"
 
 sourceCompatibility = JavaVersion.VERSION_11
 targetCompatibility = JavaVersion.VERSION_11
