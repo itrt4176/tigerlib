@@ -14,12 +14,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
   protected Pose2d robotPosition;
   protected Field2d gameField;
 
-  /**
-   * @param drive
-   * @param gyro
-   * @param leftEncoder
-   * @param rightEncoder
-   */
+  
   public DriveSubsystemBase(Gyro gyro) {
     this.gyro = gyro;
 
