@@ -3,6 +3,7 @@ package frc.tigerlib.subsystem.drive;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
+import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -40,9 +41,17 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase{
         this.isFieldOriented = isFieldOriented;
     }
 
+    protected abstract MecanumDriveWheelSpeeds getWheelSpeeds();
+
     @Override
     public void setRobotPosition(Pose2d pose) {
         resetEncoders.run();
         odometer.resetPosition(pose, gyro.getRotation2d());
+        robotPosition = odometer.getPoseMeters();
+    }
+
+    @Override
+    public void periodic() {
+        robotPosition = odometer.update(gyro.getRotation2d(), getWheelSpeeds());
     }
 }
