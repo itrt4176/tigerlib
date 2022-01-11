@@ -28,7 +28,11 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     public void setRobotPosition(Pose2d pose) {
         resetEncoders.run();
         odometer.resetPosition(pose, gyro.getRotation2d());
+        robotPosition = odometer.getPoseMeters();
     }
 
-    
+    @Override
+    public void periodic() {
+        robotPosition = odometer.update(gyro.getRotation2d(), getLeftDistance(), getRightDistance());
+    }
 }
