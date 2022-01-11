@@ -18,7 +18,6 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
 
         this.resetEncoders = resetEncoders;
         this.resetEncoders.run();
-        this.gyro = gyro;
         odometer = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
