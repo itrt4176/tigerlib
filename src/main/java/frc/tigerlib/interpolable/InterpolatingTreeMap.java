@@ -1,10 +1,7 @@
-package frc.tigerlib.interpolable.collections;
+package frc.tigerlib.interpolable;
 
 import java.util.Map;
 import java.util.TreeMap;
-
-import frc.tigerlib.interpolable.Interpolable;
-import frc.tigerlib.interpolable.InverseInterpolable;
 
 /**
  * Interpolating Tree Maps are used to get values at points that are not defined
