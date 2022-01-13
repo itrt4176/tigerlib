@@ -14,14 +14,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
   protected Pose2d robotPosition;
   protected Field2d gameField;
 
-  
-  public DriveSubsystemBase(Gyro gyro) {
-    this.gyro = gyro;
-
-    gyro.calibrate();
-    robotPosition = new Pose2d();
-    gameField = new Field2d();
-  }
+  protected DriveSubsystemBase() {}
 
   public Pose2d getRobotPosition() {
     return robotPosition;
@@ -35,7 +28,7 @@ public abstract class DriveSubsystemBase extends SubsystemBase {
 
   protected abstract void resetEncoders();
 
-  protected void setup(Gyro gyro) {
+  protected void setGyro(Gyro gyro) {
     this.gyro = gyro;
 
     gyro.calibrate();

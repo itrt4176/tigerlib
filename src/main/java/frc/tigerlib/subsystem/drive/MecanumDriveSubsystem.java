@@ -5,7 +5,6 @@ import edu.wpi.first.math.kinematics.MecanumDriveKinematics;
 import edu.wpi.first.math.kinematics.MecanumDriveOdometry;
 import edu.wpi.first.math.kinematics.MecanumDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
 public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
@@ -14,11 +13,11 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
     protected MecanumDriveOdometry odometer;
     private boolean isFieldOriented;
 
-    public MecanumDriveSubsystem(MotorController frontLeft, MotorController rearLeft, MotorController frontRight,
-            MotorController rearRight, Gyro gyro, MecanumDriveKinematics kinematics) {
+    protected MecanumDriveSubsystem() {}
 
-        super(gyro);
-
+    protected void setup(MotorController frontLeft, MotorController rearLeft, MotorController frontRight,
+            MotorController rearRight, MecanumDriveKinematics kinematics) {
+        
         frontRight.setInverted(true);
         rearRight.setInverted(true);
 
