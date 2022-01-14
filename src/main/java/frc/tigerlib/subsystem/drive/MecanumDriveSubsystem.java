@@ -80,9 +80,9 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
      */
     public void drive(double xSpeed, double ySpeed, double rotation) {
         if (isFieldOriented) {
-            drive.driveCartesian(ySpeed, xSpeed, rotation, gyro.getAngle());
+            drive.driveCartesian(xSpeed, ySpeed, rotation, gyro.getAngle());
         } else {
-            drive.driveCartesian(ySpeed, xSpeed, rotation);
+            drive.driveCartesian(xSpeed, ySpeed, rotation);
         }
     }
 
