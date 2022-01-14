@@ -4,7 +4,11 @@ import edu.wpi.first.wpilibj.XboxController;
 
 /**
  * Handle input from Xbox 360 or Xbox One controllers connected to the Driver
- * Station. Allows you to use the d-pad as buttons in addition to an axis.
+ * Station.
+ * 
+ * <p>
+ * Allows you to use the d-pad as buttons and supports a built in deadzone. The
+ * default deadzone is ±0.05.
  *
  * <p>
  * This class handles Xbox input that comes from the Driver Station. Each time a
@@ -48,15 +52,33 @@ public class XboxControllerIT extends XboxController {
         }
     }
 
+    /**
+     * Construct an instance of a controller.
+     *
+     * @param port The port index on the Driver Station that the controller is
+     *             plugged into.
+     */
     public XboxControllerIT(final int port) {
         super(port);
         deadzone = 0.05;
     }
 
+    /**
+     * Returns 0.0 if the given value is within the deadzone around zero. The
+     * remaining range between the deadband and 1.0 is scaled from 0.0 to 1.0.
+     * 
+     * @param deadzone The range ±0.0 which will be returned as 0.0.
+     *                 Valid range: 0.0 - 1.0
+     */
     public void setDeadzone(double deadzone) {
         this.deadzone = deadzone;
     }
 
+    /**
+     * Get the deadzone currently set for the controller.
+     * 
+     * @return Current deadzone
+     */
     public double getDeadzone() {
         return deadzone;
     }
