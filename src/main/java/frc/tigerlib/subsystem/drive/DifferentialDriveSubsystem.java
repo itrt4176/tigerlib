@@ -5,20 +5,111 @@ import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 
+/**
+ * A class for easy bootstrapping of a differential drive/skid-steer drive
+ * subsystem
+ * such as the Kit of Parts drive base, "tank drive", or West Coast Drive.
+ *
+ * <p>
+ * These drive bases typically have drop-center / skid-steer with two or more
+ * wheels per side
+ * (e.g., 6WD or 8WD). This class takes a MotorController per side in
+ * {@link #setMotors(MotorController, MotorController)}. For four and six motor
+ * drivetrains, construct and pass in {@link
+ * edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup} instances as
+ * follows.
+ *
+ * <p>
+ * Four motor drivetrain:
+ *
+ * <pre>
+ * <code>
+ * public class DriveSystem extends DifferentialDriveSubsystem {
+ *   MotorController m_frontLeft = new PWMVictorSPX(1);
+ *   MotorController m_rearLeft = new PWMVictorSPX(2);
+ *   MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_rearLeft);
+ *
+ *   MotorController m_frontRight = new PWMVictorSPX(3);
+ *   MotorController m_rearRight = new PWMVictorSPX(4);
+ *   MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_rearRight);
+ *
+ *   public DriveSystem() {
+ *     setMotors(m_left, m_right);
+ *   }
+ * }
+ * </code>
+ * </pre>
+ *
+ * <p>
+ * Six motor drivetrain:
+ *
+ * <pre>
+ * <code>
+ * public class DriveSystem extends DifferentialDriveSubsystem {
+ *   MotorController m_frontLeft = new PWMVictorSPX(1);
+ *   MotorController m_midLeft = new PWMVictorSPX(2);
+ *   MotorController m_rearLeft = new PWMVictorSPX(3);
+ *   MotorControllerGroup m_left = new MotorControllerGroup(m_frontLeft, m_midLeft, m_rearLeft);
+ *
+ *   MotorController m_frontRight = new PWMVictorSPX(4);
+ *   MotorController m_midRight = new PWMVictorSPX(5);
+ *   MotorController m_rearRight = new PWMVictorSPX(6);
+ *   MotorControllerGroup m_right = new MotorControllerGroup(m_frontRight, m_midRight, m_rearRight);
+ *
+ *   public DriveSystem() {
+ *     setMotors(m_left, m_right);
+ *   }
+ * }
+ * </code>
+ * </pre>
+ *
+ * <p>
+ * A differential drive robot has left and right wheels separated by an
+ * arbitrary width.
+ *
+ * <p>
+ * Drive base diagram:
+ *
+ * <pre>
+ * |_______|
+ * | |   | |
+ *   |   |
+ * |_|___|_|
+ * |       |
+ * </pre>
+ */
 public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
     
+    /** Constructor. */
     protected DifferentialDriveSubsystem() {}
 
-    protected void setMotors(MotorController leftMotors, MotorController rightMotors) {
-        rightMotors.setInverted(true);
-        drive = new DifferentialDrive(leftMotors, rightMotors);
+    /**
+     * Set the left and right motors to create the {@link DifferentialDrive} and 
+     * {@link DifferentialDriveOdometry} objects.
+     * 
+     * @param leftMotor left motor
+     * @param rightMotor right motor
+     */
+    protected void setMotors(MotorController leftMotor, MotorController rightMotor) {
+        rightMotor.setInverted(true);
+        drive = new DifferentialDrive(leftMotor, rightMotor);
+        drive.setDeadband(0.0);
 
         resetEncoders();
         odometer = new DifferentialDriveOdometry(gyro.getRotation2d());
     }
 
+    /**
+     * Arcade drive method for differential drive platform.
+     * 
+     * @param ySpeed   The robot's speed along the Y axis [-1.0..1.0]. Forward is
+     *                 positive.
+     * @param rotation The robot's rotation rate around the Z axis [-1.0..1.0].
+     *                 Clockwise is
+     *                 positive.
+     */
     public void drive(double ySpeed, double rotation) {
         drive.arcadeDrive(ySpeed, rotation, true);
     }
