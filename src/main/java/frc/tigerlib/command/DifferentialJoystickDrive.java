@@ -8,11 +8,24 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.tigerlib.subsystem.drive.DifferentialDriveSubsystem;
 
+/**
+ * Prewritten command to drive a {@link DifferentialDriveSubsystem} with an
+ * {@link XboxController}.
+ */
 public class DifferentialJoystickDrive extends CommandBase {
   private DifferentialDriveSubsystem driveSys;
   private XboxController controller;
 
-  /** Creates a new DifferentialJoystickDrive. */
+  /**
+   * Construct a DifferentialJoystickDrive command.
+   * 
+   * <p> This command should be set as the default for the subsystem after
+   * creation.
+   * 
+   * 
+   * @param driveSubsystem {@link DifferentialDriveSubsystem} to drive.
+   * @param controller {@link XboxController} to use for driving.
+   */
   public DifferentialJoystickDrive(DifferentialDriveSubsystem driveSubsystem, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveSys = driveSubsystem;

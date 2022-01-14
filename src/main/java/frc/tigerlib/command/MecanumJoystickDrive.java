@@ -8,11 +8,27 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.tigerlib.subsystem.drive.MecanumDriveSubsystem;
 
+/**
+ * Prewritten command to drive a {@link MecanumDriveSubsystem} with an
+ * {@link XboxController}.
+ */
 public class MecanumJoystickDrive extends CommandBase {
   private MecanumDriveSubsystem driveSys;
   private XboxController controller;
 
-  /** Creates a new MecanumJoystickDrive. */
+  /**
+   * Construct a MecanumJoystickDrive command. Left joystick is used for
+   * forward movement and strafing. X-axis of the right joystick is used
+   * for rotation.
+   * 
+   * <p>
+   * This command should be set as the default for the subsystem after
+   * creation.
+   * 
+   * 
+   * @param driveSubsystem {@link MecanumDriveSubsystem} to drive.
+   * @param controller     {@link XboxController} to use for driving.
+   */
   public MecanumJoystickDrive(MecanumDriveSubsystem driveSubsystem, XboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveSys = driveSubsystem;
