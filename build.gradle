@@ -11,7 +11,7 @@ repositories {
     }
 }
 
-version = "2022.1.0"
+version = "2022.1.0-rc1"
 group = "com.github.itrt4176"
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -33,6 +33,7 @@ java {
 
 javadoc {
     options.encoding = 'UTF-8'
+    options.links = ['https://docs.oracle.com/en/java/javase/11/docs/api/', 'https://first.wpi.edu/wpilib/allwpilib/docs/release/java/']
 }
 
 artifacts {
