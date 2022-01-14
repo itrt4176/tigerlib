@@ -26,4 +26,4 @@ tigerlib is a library meant at reducing the year to year recreation of nearly id
 
 ## Usage
 
-Check our project wiki (*coming soon*) for tutorials and our [javadoc](https://javadoc.jitpack.io/com/github/itrt4176/tigerlib/develop-SNAPSHOT/javadoc/index.html) for the full API.
+Check our project wiki (*coming soon*) for tutorials and our [javadoc](https://javadoc.jitpack.io/com/github/itrt4176/tigerlib/v2022.1.0-rc1/javadoc/index.html) for the full API.
