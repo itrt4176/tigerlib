@@ -46,7 +46,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
      * @param rearRight  The motor on the rear-right corner.
      * @param kinematics The mecanum drive kinematics for your drivetrain.
      * 
-     * @see {@link MecanumDriveKinematics}
+     * @see MecanumDriveKinematics
      */
     protected void setMotors(MotorController frontLeft, MotorController rearLeft, MotorController frontRight,
             MotorController rearRight, MecanumDriveKinematics kinematics) {
@@ -76,7 +76,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
      * @param rotation The robot's rotation rate around the Z axis [-1.0..1.0].
      *                 Clockwise is positive.
      * 
-     * @see {@link #setFieldOriented(boolean)} for field-oriented controls.
+     * @see #setFieldOriented(boolean)
      */
     public void drive(double xSpeed, double ySpeed, double rotation) {
         if (isFieldOriented) {
