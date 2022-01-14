@@ -20,7 +20,7 @@ tigerlib is a library meant at reducing the year to year recreation of nearly id
    ```Gradle
     dependencies {
         ...
-	    implementation 'com.github.itrt4176:tigerlib:develop-SNAPSHOT'
+	    implementation 'com.github.itrt4176:tigerlib:2022.1.0-rc1'
 	}
    ```
 
