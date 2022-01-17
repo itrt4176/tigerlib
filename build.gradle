@@ -11,7 +11,7 @@ repositories {
     }
 }
 
-version = "2022.1.0-rc1"
+version = "2022.1.0-rc2"
 group = "com.github.itrt4176"
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -46,7 +46,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.itrt4176'
             artifactId = 'tigerlib'
-            version = '2022.1.0-rc1'
+            version = '2022.1.0-rc2'
 
             from components.java
         }
