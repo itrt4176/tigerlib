@@ -119,4 +119,14 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
     public void periodic() {
         robotPosition = odometer.update(gyro.getRotation2d(), getWheelSpeeds());
     }
+
+    @Override
+    protected double getLeftDistance() {
+        return 0;
+    }
+
+    @Override
+    protected double getRightDistance() {
+        return 0;
+    }
 }
