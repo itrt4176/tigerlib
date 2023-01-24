@@ -79,9 +79,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  * </pre>
  */
 public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
+    @FunctionalInterface
+    protected interface DriveMethod {
+        void drive(double xSpeed, double rotation);
+    }
+
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
-    
+    protected DriveMethod driveMethod;
+    protected boolean inverted;
+
     /** Constructor. */
     protected DifferentialDriveSubsystem() {}
 
@@ -96,27 +103,51 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
         rightMotor.setInverted(true);
         drive = new DifferentialDrive(leftMotor, rightMotor);
         drive.setDeadband(0.0);
+        setStandard();
 
         resetEncoders();
-        odometer = new DifferentialDriveOdometry(gyro.getRotation2d());
+        odometer = new DifferentialDriveOdometry(
+            gyro.getRotation2d(),
+            0.0,
+            0.0
+        );
     }
 
     /**
      * Arcade drive method for differential drive platform.
      * 
-     * @param ySpeed   The robot's speed along the Y axis [-1.0..1.0]. Forward is
+     * @param xSpeed   The robot's speed along the X axis [-1.0..1.0]. Forward is
      *                 positive.
      * @param rotation The robot's rotation rate around the Z axis [-1.0..1.0].
-     *                 Clockwise is
+     *                 Counterlockwise is
      *                 positive.
      */
-    public void drive(double ySpeed, double rotation) {
-        drive.arcadeDrive(ySpeed, rotation, true);
+    public void drive(double xSpeed, double rotation) {
+        driveMethod.drive(xSpeed, rotation);
+    }
+
+    @Override
+    public void setStandard() {
+        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(xSpeed, rotation);
+
+        inverted = false;
+    }
+
+    @Override
+    public void setInverted() {
+        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(-xSpeed, -rotation);
+
+        inverted = true;
+    }
+
+    @Override
+    public boolean isInverted() {
+        return inverted;
     }
 
     public void setRobotPosition(Pose2d pose) {
         resetEncoders();
-        odometer.resetPosition(pose, gyro.getRotation2d());
+        odometer.resetPosition(gyro.getRotation2d(), 0.0, 0.0, pose);
         robotPosition = odometer.getPoseMeters();
     }
 

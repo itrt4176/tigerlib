@@ -4,17 +4,17 @@
 
 package frc.tigerlib.command;
 
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.tigerlib.subsystem.drive.MecanumDriveSubsystem;
 
 /**
- * Prewritten command to drive a {@link MecanumDriveSubsystem} with an
- * {@link XboxController}.
+ * Prewritten command to drive a {@link MecanumDriveSubsystem} with a
+ * {@link CommandXboxController}.
  */
 public class MecanumJoystickDrive extends CommandBase {
   private MecanumDriveSubsystem driveSys;
-  private XboxController controller;
+  private CommandXboxController controller;
 
   /**
    * Construct a MecanumJoystickDrive command. Left joystick is used for
@@ -27,9 +27,9 @@ public class MecanumJoystickDrive extends CommandBase {
    * 
    * 
    * @param driveSubsystem {@link MecanumDriveSubsystem} to drive.
-   * @param controller     {@link XboxController} to use for driving.
+   * @param controller     {@link CommandXboxController} to use for driving.
    */
-  public MecanumJoystickDrive(MecanumDriveSubsystem driveSubsystem, XboxController controller) {
+  public MecanumJoystickDrive(MecanumDriveSubsystem driveSubsystem, CommandXboxController controller) {
     // Use addRequirements() here to declare subsystem dependencies.
     driveSys = driveSubsystem;
     this.controller = controller;
@@ -40,7 +40,7 @@ public class MecanumJoystickDrive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    driveSys.drive(controller.getLeftX(), controller.getLeftY(), controller.getRightX());
+    driveSys.drive(controller.getLeftY(), -controller.getLeftX(), -controller.getRightX());
   }
 
   // Returns true when the command should end.
