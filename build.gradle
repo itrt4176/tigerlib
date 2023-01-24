@@ -11,7 +11,7 @@ repositories {
     }
 }
 
-version = "2023.1.0-alpha"
+version = "2023.1.0-beta1"
 group = "com.github.itrt4176"
 
 sourceCompatibility = JavaVersion.VERSION_17
