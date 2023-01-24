@@ -1,6 +1,8 @@
 package frc.tigerlib;
 
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * Handle input from Xbox 360 or Xbox One controllers connected to the Driver
@@ -18,11 +20,16 @@ import edu.wpi.first.wpilibj.XboxController;
  * and the mapping of ports to hardware buttons depends on the code in the
  * Driver Station.
  */
-public class XboxControllerIT extends XboxController {
+public class XboxControllerIT extends CommandXboxController {
     private int lastPOV = -1;
     private double deadzone;
 
-    /** Represents a d-pad direction on an XboxController. */
+    /** 
+     * Represents a d-pad direction on an XboxController. 
+     * 
+     * @deprecated Will be removed in 2024. 
+     */
+    @Deprecated(since = "2023", forRemoval = true)
     public enum DPadDirection {
         kUp(0),
         kRight(90),
@@ -124,9 +131,12 @@ public class XboxControllerIT extends XboxController {
      * upper-left is 315).
      *
      * @return the angle of the POV in degrees, or -1 if the POV is not pressed.
+     * 
+     * @deprecated Replace with {@link GenericHID#getPOV() getHID().getPOV()}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public int getPOV() {
-        lastPOV = super.getPOV();
+        lastPOV = getHID().getPOV();
         return lastPOV;
     }
 
@@ -134,9 +144,12 @@ public class XboxControllerIT extends XboxController {
      * Read the value of the left D-Pad button on the controller.
      *
      * @return The state of the button.
+     * 
+     * @deprecated Replace with {@link #povLeft()} and {@link Trigger}
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getLeftDPad() {
-        lastPOV = super.getPOV();
+        getPOV();
         return lastPOV == DPadDirection.kLeft.value;
     }
 
@@ -144,9 +157,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the left D-Pad button was pressed since the last check.
      *
      * @return Whether the button was pressed since the last check.
+     * 
+     * @deprecated Replace with {@link #povLeft()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getLeftDPadPressed() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV != DPadDirection.kLeft.value && pov == DPadDirection.kLeft.value) {
             lastPOV = pov;
             return true;
@@ -160,9 +176,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the left D-Pad button was released since the last check.
      *
      * @return Whether the button was released since the last check.
+     * 
+     * @deprecated Replace with {@link #povLeft()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getLeftDPadReleased() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV == DPadDirection.kLeft.value && pov != DPadDirection.kLeft.value) {
             lastPOV = pov;
             return true;
@@ -177,9 +196,12 @@ public class XboxControllerIT extends XboxController {
      * Read the value of the right D-Pad button on the controller.
      *
      * @return The state of the button.
+     * 
+     * @deprecated Replace with {@link #povRight()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getRightDPad() {
-        lastPOV = super.getPOV();
+        getPOV();
         return lastPOV == DPadDirection.kRight.value;
     }
 
@@ -188,9 +210,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the right D-Pad button was pressed since the last check.
      *
      * @return Whether the button was pressed since the last check.
+     * 
+     * @deprecated Replace with {@link #povRight()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getRightDPadPressed() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV != DPadDirection.kRight.value && pov == DPadDirection.kRight.value) {
             lastPOV = pov;
             return true;
@@ -204,9 +229,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the right D-Pad button was released since the last check.
      *
      * @return Whether the button was released since the last check.
+     * 
+     * @deprecated Replace with {@link #povRight()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getRightDPadReleased() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV == DPadDirection.kRight.value && pov != DPadDirection.kRight.value) {
             lastPOV = pov;
             return true;
@@ -220,9 +248,12 @@ public class XboxControllerIT extends XboxController {
      * Read the value of the up D-Pad button on the controller.
      *
      * @return The state of the button.
+     * 
+     * @deprecated Replace with {@link #povUp()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getUpDPad() {
-        lastPOV = super.getPOV();
+        getPOV();
         return lastPOV == DPadDirection.kUp.value;
     }
 
@@ -230,9 +261,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the up D-Pad button was pressed since the last check.
      *
      * @return Whether the button was pressed since the last check.
+     * 
+     * @deprecated Replace with {@link #povUp()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getUpDPadPressed() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV != DPadDirection.kUp.value && pov == DPadDirection.kUp.value) {
             lastPOV = pov;
             return true;
@@ -246,9 +280,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the up D-Pad button was released since the last check.
      *
      * @return Whether the button was released since the last check.
+     * 
+     * @deprecated Replace with {@link #povUp()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getUpDPadReleased() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV == DPadDirection.kUp.value && pov != DPadDirection.kUp.value) {
             lastPOV = pov;
             return true;
@@ -262,9 +299,12 @@ public class XboxControllerIT extends XboxController {
      * Read the value of the right d-pad button on the controller.
      *
      * @return The state of the button.
+     * 
+     * @deprecated Replace with {@link #povDown()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getDownDPad() {
-        lastPOV = super.getPOV();
+        getPOV();
         return lastPOV == DPadDirection.kDown.value;
     }
 
@@ -272,9 +312,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the right d-pad button was pressed since the last check.
      *
      * @return Whether the button was pressed since the last check.
+     * 
+     * @deprecated Replace with {@link #povDown()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getDownDPadPressed() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV != DPadDirection.kDown.value && pov == DPadDirection.kDown.value) {
             lastPOV = pov;
             return true;
@@ -288,9 +331,12 @@ public class XboxControllerIT extends XboxController {
      * Whether the right d-pad button was released since the last check.
      *
      * @return Whether the button was released since the last check.
+     * 
+     * @deprecated Replace with {@link #povDown()} and {@link Trigger}.
      */
+    @Deprecated(since = "2023", forRemoval = true)
     public boolean getDownDPadReleased() {
-        int pov = super.getPOV();
+        int pov = getHID().getPOV();
         if (lastPOV == DPadDirection.kDown.value && pov != DPadDirection.kDown.value) {
             lastPOV = pov;
             return true;

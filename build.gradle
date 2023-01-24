@@ -1,5 +1,5 @@
 plugins {
-    id "edu.wpi.first.GradleRIO" version "2022.1.1"
+    id "edu.wpi.first.GradleRIO" version "2023.2.1"
     id "java-library"
     id "maven-publish"
 }
@@ -11,11 +11,11 @@ repositories {
     }
 }
 
-version = "2022.1.0"
+version = "2023.1.0-alpha"
 group = "com.github.itrt4176"
 
-sourceCompatibility = JavaVersion.VERSION_11
-targetCompatibility = JavaVersion.VERSION_11
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
 
 
 
@@ -33,7 +33,7 @@ java {
 
 javadoc {
     options.encoding = 'UTF-8'
-    options.links = ['https://docs.oracle.com/en/java/javase/11/docs/api/', 'https://first.wpi.edu/wpilib/allwpilib/docs/release/java/']
+    options.links = ['https://docs.oracle.com/en/java/javase/17/docs/api/', 'https://github.wpilib.org/allwpilib/docs/release/java/']
 }
 
 artifacts {
@@ -46,7 +46,7 @@ publishing {
         mavenJava(MavenPublication) {
             groupId = 'com.github.itrt4176'
             artifactId = 'tigerlib'
-            version = '2022.1.0'
+            version = '2023.1.0-alpha'
 
             from components.java
         }
