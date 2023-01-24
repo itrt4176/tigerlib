@@ -30,9 +30,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  * </pre>
  */
 public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
+    @FunctionalInterface
+    protected interface DriveMethod {
+        void drive(double xSpeed, double ySpeed, double rotation);
+    }
+
     protected MecanumDrive drive;
     protected MecanumDriveOdometry odometer;
     private boolean isFieldOriented;
+    protected DriveMethod driveMethod;
+    protected boolean inverted;
 
     /** Constructor. */
     protected MecanumDriveSubsystem() {}
@@ -57,6 +64,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
 
         drive = new MecanumDrive(frontLeft, rearLeft, frontRight, rearRight);
         drive.setDeadband(0.0);
+        setStandard();
 
         resetEncoders();
         odometer = new MecanumDriveOdometry(kinematics, gyro.getRotation2d(), getWheelPositions());
@@ -80,11 +88,7 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
      * @see #setFieldOriented(boolean)
      */
     public void drive(double xSpeed, double ySpeed, double rotation) {
-        if (isFieldOriented) {
-            drive.driveCartesian(xSpeed, ySpeed, rotation, gyro.getRotation2d());
-        } else {
-            drive.driveCartesian(xSpeed, ySpeed, rotation);
-        }
+        driveMethod.drive(xSpeed, ySpeed, rotation);
     }
 
     /**
@@ -92,12 +96,44 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
      * relative to the field rather than the robot using input from the
      * gyroscope.
      * 
-     * <p> Defaults to false.
+     * <p>
+     * Defaults to false.
      * 
      * @param isFieldOriented Set field-oriented control.
      */
     protected void setFieldOriented(boolean isFieldOriented) {
         this.isFieldOriented = isFieldOriented;
+    }
+
+    @Override
+    public void setStandard() {
+        driveMethod = (xSpeed, ySpeed, rotation) -> {
+            if (isFieldOriented) {
+                drive.driveCartesian(xSpeed, ySpeed, rotation, gyro.getRotation2d());
+            } else {
+                drive.driveCartesian(xSpeed, ySpeed, rotation);
+            }
+        };
+
+        inverted = false;
+    }
+
+    @Override
+    public void setInverted() {
+        driveMethod = (xSpeed, ySpeed, rotation) -> {
+            if (isFieldOriented) {
+                drive.driveCartesian(-xSpeed, -ySpeed, -rotation, gyro.getRotation2d());
+            } else {
+                drive.driveCartesian(-xSpeed, -ySpeed, -rotation);
+            }
+        };
+
+        inverted = true;
+    }
+
+    @Override
+    public boolean isInverted() {
+        return inverted;
     }
 
     /**

@@ -8,12 +8,13 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.tigerlib.subsystem.InvertibleSubsystem;
 
 /**
  * A base for drive subsystems that can be subclassed for easier
  * bootstrapping.
  */
-public abstract class DriveSubsystemBase extends SubsystemBase {
+public abstract class DriveSubsystemBase extends SubsystemBase implements InvertibleSubsystem {
   protected Gyro gyro;
   protected Pose2d robotPosition;
   protected Field2d gameField;

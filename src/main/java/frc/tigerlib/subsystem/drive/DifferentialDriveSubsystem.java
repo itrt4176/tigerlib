@@ -79,9 +79,16 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
  * </pre>
  */
 public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
+    @FunctionalInterface
+    protected interface DriveMethod {
+        void drive(double xSpeed, double rotation);
+    }
+
     protected DifferentialDrive drive;
     protected DifferentialDriveOdometry odometer;
-    
+    protected DriveMethod driveMethod;
+    protected boolean inverted;
+
     /** Constructor. */
     protected DifferentialDriveSubsystem() {}
 
@@ -96,6 +103,7 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
         rightMotor.setInverted(true);
         drive = new DifferentialDrive(leftMotor, rightMotor);
         drive.setDeadband(0.0);
+        setStandard();
 
         resetEncoders();
         odometer = new DifferentialDriveOdometry(
@@ -115,7 +123,26 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
      *                 positive.
      */
     public void drive(double xSpeed, double rotation) {
-        drive.arcadeDrive(xSpeed, rotation, true);
+        driveMethod.drive(xSpeed, rotation);
+    }
+
+    @Override
+    public void setStandard() {
+        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(xSpeed, rotation);
+
+        inverted = false;
+    }
+
+    @Override
+    public void setInverted() {
+        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(-xSpeed, -rotation);
+
+        inverted = true;
+    }
+
+    @Override
+    public boolean isInverted() {
+        return inverted;
     }
 
     public void setRobotPosition(Pose2d pose) {
