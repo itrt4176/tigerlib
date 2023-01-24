@@ -1,6 +1,8 @@
 package frc.tigerlib.subsystem;
 
-public interface InvertibleSubsystem {
+import edu.wpi.first.wpilibj2.command.Subsystem;
+
+public interface InvertibleSubsystem extends Subsystem {
     public void setInverted();
 
     public void setStandard();
