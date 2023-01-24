@@ -1,6 +1,6 @@
 package frc.tigerlib;
 
-import edu.wpi.first.wpilibj2.command.button.CommandGenericHID;
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -132,7 +132,7 @@ public class XboxControllerIT extends CommandXboxController {
      *
      * @return the angle of the POV in degrees, or -1 if the POV is not pressed.
      * 
-     * @deprecated Replace with {@link CommandGenericHID#getPOV() getHID().getPOV()}.
+     * @deprecated Replace with {@link GenericHID#getPOV() getHID().getPOV()}.
      */
     @Deprecated(since = "2023", forRemoval = true)
     public int getPOV() {

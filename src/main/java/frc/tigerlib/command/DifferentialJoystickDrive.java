@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.tigerlib.subsystem.drive.DifferentialDriveSubsystem;
 
 /**
- * Prewritten command to drive a {@link DifferentialDriveSubsystem} with an
- * {@link XboxController}.
+ * Prewritten command to drive a {@link DifferentialDriveSubsystem} with a
+ * {@link CommandXboxController}.
  */
 public class DifferentialJoystickDrive extends CommandBase {
   private DifferentialDriveSubsystem driveSys;

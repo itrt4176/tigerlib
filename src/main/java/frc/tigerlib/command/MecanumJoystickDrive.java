@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.tigerlib.subsystem.drive.MecanumDriveSubsystem;
 
 /**
- * Prewritten command to drive a {@link MecanumDriveSubsystem} with an
- * {@link XboxController}.
+ * Prewritten command to drive a {@link MecanumDriveSubsystem} with a
+ * {@link CommandXboxController}.
  */
 public class MecanumJoystickDrive extends CommandBase {
   private MecanumDriveSubsystem driveSys;
