@@ -1,5 +1,5 @@
 # tigerlib - FRC Java Programs: Now with 100% Less Boilerplate
-[![CI](https://github.com/limited/tigerlib/actions/workflows/main.yml/badge.svg?branch=develop)](https://github.com/limited/tigerlib/actions/workflows/main.yml) [![](https://jitpack.io/v/itrt4176/tigerlib.svg)](https://jitpack.io/#itrt4176/tigerlib)
+[![CI](https://github.com/limited/tigerlib/actions/workflows/main.yml/badge.svg?branch=develop&event=push)](https://github.com/limited/tigerlib/actions/workflows/main.yml) [![](https://jitpack.io/v/itrt4176/tigerlib.svg)](https://jitpack.io/#itrt4176/tigerlib)
 
 **THIS IS BETA SOFTWARE! USE WITH CAUTION**
 
