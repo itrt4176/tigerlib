@@ -2,13 +2,15 @@ plugins {
     id "edu.wpi.first.GradleRIO" version "2023.2.1"
     id "java-library"
     id "maven-publish"
+    id 'jacoco'
 }
+
 
 repositories {
     mavenCentral()
     maven {
         url "https://frcmaven.wpi.edu/artifactory/release/"
-    }
+    }    
 }
 
 version = "2023.1.0-beta1"
@@ -17,13 +19,24 @@ group = "com.github.itrt4176"
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
 
-
-
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    compileOnly wpi.java.deps.wpilib() 
-    compileOnly wpi.java.vendor.java()
+    implementation wpi.java.deps.wpilib() 
+    implementation wpi.java.vendor.java()
+
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
+    simulationDebug wpi.sim.enableDebug()
+
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+    nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()    
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.8.2'
+    testImplementation "org.mockito:mockito-core:3.+"    
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 java {
@@ -34,6 +47,32 @@ java {
 javadoc {
     options.encoding = 'UTF-8'
     options.links = ['https://docs.oracle.com/en/java/javase/17/docs/api/', 'https://github.wpilib.org/allwpilib/docs/release/java/']
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
+    maxHeapSize = '1G'
+
+    testLogging {
+        events "passed"
+    }
+
+    finalizedBy jacocoTestReport // report is always generated after tests run    
+}
+
+wpi.java.configureExecutableTasks(jar)
+wpi.java.configureTestTasks(test)
+
+jacoco {
+    toolVersion = "0.8.8"
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')    
+    }
 }
 
 artifacts {
