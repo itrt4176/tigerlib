@@ -122,9 +122,9 @@ public abstract class MecanumDriveSubsystem extends DriveSubsystemBase {
     public void setInverted() {
         driveMethod = (xSpeed, ySpeed, rotation) -> {
             if (isFieldOriented) {
-                drive.driveCartesian(-xSpeed, -ySpeed, -rotation, gyro.getRotation2d());
+                drive.driveCartesian(-xSpeed, -ySpeed, rotation, gyro.getRotation2d());
             } else {
-                drive.driveCartesian(-xSpeed, -ySpeed, -rotation);
+                drive.driveCartesian(-xSpeed, -ySpeed, rotation);
             }
         };
 

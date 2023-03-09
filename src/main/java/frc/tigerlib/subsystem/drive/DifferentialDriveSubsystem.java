@@ -135,7 +135,7 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
 
     @Override
     public void setInverted() {
-        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(-xSpeed, -rotation);
+        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(-xSpeed, rotation);
 
         inverted = true;
     }
