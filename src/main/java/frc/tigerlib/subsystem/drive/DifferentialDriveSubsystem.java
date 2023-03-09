@@ -89,6 +89,9 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
     protected DriveMethod driveMethod;
     protected boolean inverted;
 
+    private MotorController leftMotor;
+    private MotorController rightMotor;
+
     /** Constructor. */
     protected DifferentialDriveSubsystem() {}
 
@@ -100,7 +103,10 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
      * @param rightMotor right motor
      */
     protected void setMotors(MotorController leftMotor, MotorController rightMotor) {
-        rightMotor.setInverted(true);
+        this.leftMotor = leftMotor;
+        this.rightMotor = rightMotor;
+
+        this.rightMotor.setInverted(true);
         drive = new DifferentialDrive(leftMotor, rightMotor);
         drive.setDeadband(0.0);
         setStandard();
@@ -123,19 +129,21 @@ public abstract class DifferentialDriveSubsystem extends DriveSubsystemBase {
      *                 positive.
      */
     public void drive(double xSpeed, double rotation) {
-        driveMethod.drive(xSpeed, rotation);
+        drive.arcadeDrive(xSpeed, rotation);
     }
 
     @Override
     public void setStandard() {
-        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(xSpeed, rotation);
+        leftMotor.setInverted(false);
+        rightMotor.setInverted(true);
 
         inverted = false;
     }
 
     @Override
     public void setInverted() {
-        driveMethod = (xSpeed, rotation) -> drive.arcadeDrive(-xSpeed, -rotation);
+        leftMotor.setInverted(true);
+        rightMotor.setInverted(false);
 
         inverted = true;
     }
